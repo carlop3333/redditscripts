@@ -22,11 +22,11 @@ function getTor {
         [String] $os
     )
     $tor = Test-Path 'tor-file.tar.gz'
-    if ($os -eq "windows" && $tor -eq $false) {
+    if ($os -eq "windows" -and $tor -eq $false) {
         installTor($TorWindows)
-    } elseif ($os -eq "mac" && $tor -eq $false) {
+    } elseif ($os -eq "mac" -and $tor -eq $false) {
         installTor($TorMac)
-    } elseif ($os -eq "linux" && $tor -eq $false) {
+    } elseif ($os -eq "linux" -and $tor -eq $false) {
         installTor($TorLinux)
     } elseif ( $tor -eq $true) {
         runTor
