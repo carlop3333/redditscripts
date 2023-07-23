@@ -1,3 +1,6 @@
+# misc
+*.tar.gz
+
 # Logs
 logs
 *.log
