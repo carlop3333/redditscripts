@@ -1,0 +1,6 @@
+/tor
+/node_modules
+*out.txt
+*package-lock.json
+*tokens.txt
+*accounts.json

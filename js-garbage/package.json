@@ -1,0 +1,22 @@
+{
+  "name": "rplace-2023-script",
+  "version": "1.0.0",
+  "description": "Fuck u/spez",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/carlop3333/rplace-2023"
+  },
+  "author": "carlop3k",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "2captcha": "^3.0.7",
+    "geckodriver": "^4.0.5",
+    "node-fetch": "^3.3.1",
+    "selenium-webdriver": "^4.10.0"
+  }
+}
