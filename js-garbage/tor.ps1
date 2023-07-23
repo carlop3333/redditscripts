@@ -15,6 +15,7 @@ function installTor {
     $install = Join-Path $Pwd.Path 'tor-file.tar.gz'
     Write-Output 'Installing on: ', $install
     Invoke-WebRequest -Uri $url -OutFile $install
+    Write-Output 'Tor installed!'
 }
 
 function getTor {
@@ -29,6 +30,7 @@ function getTor {
     } elseif ($os -eq "linux" -and $tor -eq $false) {
         installTor($TorLinux)
     } elseif ( $tor -eq $true) {
+        Write-Output 'Running Tor...'
         runTor
     }
 }
