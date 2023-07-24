@@ -1,10 +1,15 @@
 #optional parameters
 param (
     #auto means "tor.ps1 -auto 1" aka run Tor automatically
-    [bool] $auto = $false
+    [bool] $auto = $false,
+    [bool] $autotemp = $false
 )
 
+
+
 'tar IS REQUIRED'
+# Just in case
+$autotempWarn = $False
 # Basic shit
 $OS = Get-ComputerInfo -Property OsName
 $TorInstalled = Test-Path 'tor-file.tar.gz'
@@ -46,7 +51,7 @@ function installTor {
 
 function uninstallTor {
     Remove-Item $install
-    Remove-Item (Join-Path $Pwd.Path 'tor')
+    Remove-Item -Recurse (Join-Path $Pwd.Path 'tor') 
     "Tor uninstalled!"
     exit
 }
@@ -76,6 +81,18 @@ function main {
     elseif ($opt -eq 3 -and $TorInstalled -eq $true) {uninstallTor}
 }
 
+if ($autotemp -eq $true) {
+    # Check that is not already installed
+    if ($TorInstalled -eq $false) {
+        getTor
+        runTor
+    } else {
+        Write-Warning 'Detected tor installation, it will be treated as -auto param'
+        $autotempWarn = $true
+        runTor
+    }
+}
+
 if ($auto -eq $true) {
     if ($TorInstalled -eq $true) {
         runTor
@@ -87,3 +104,4 @@ if ($auto -eq $true) {
 }
 
 main
+
