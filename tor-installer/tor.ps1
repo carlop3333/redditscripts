@@ -16,19 +16,18 @@ $TorMac = "https://archive.torproject.org/tor-package-archive/torbrowser/12.5.1/
 
 function runTor {
     'Running Tor...'
-    cd tor
-    ./tor
+    Start-Sleep -Seconds 2
+    ./tor/tor
 }
 function installTor {
     param (
         [String] $url
     )
-    Write-Output 'Installing on: ' + $install.ToString()
-    $downloader = New-Object System.Net.WebClient
+    Write-Output "Installing on: $install" 
     #PowerShell is better
     try {
-        $downloader.DownloadFile($url, $install)
-        tar -xk -f $install 
+        Invoke-WebRequest -Uri $url -OutFile $install
+        tar -xk -f $install 'tor'
         Write-Output 'Tor installed!'
         runTor 
     }
@@ -47,6 +46,9 @@ function installTor {
 
 function uninstallTor {
     Remove-Item $install
+    Remove-Item (Join-Path $Pwd.Path 'tor')
+    "Tor uninstalled!"
+    exit
 }
 
 function getTor {
@@ -57,17 +59,31 @@ function getTor {
 
 function main {
     Clear-Host
+    'Run this on the folder you want Tor to Install!'
     'Select the option you want to use:'
-    if ($TorInstalled -eq $true -and $auto -eq $false) { Write-Output '1> Run' }
-    Write-Output '2> Install'
-    if ($TorInstalled -eq $true -and $auto -eq $false) { Write-Output '3> Uninstall' }
+    if ($TorInstalled -eq $true) { Write-Output '1> Run' }
+    if ($TorInstalled -eq $false) { Write-Output '2> Install' }
+    if ($TorInstalled -eq $true) { Write-Output '3> Uninstall' }
     Write-Output '4> Exit'
     $opt = Read-Host
 
-    if ($opt -eq 1 -and $TorInstalled -eq $false) { main }
-    elseif ($opt -eq 1 -and $TorInstalled -eq $true) { runTor }
-    elseif ($opt -eq 2 -and $TorInstalled -eq $false) { getTor }
-    elseif ($opt -eq 1 -and $TorInstalled -eq $true) { <# Do something #> }
+    #ugh
+    if ($opt -eq 1 -and $TorInstalled -eq $false) {main}
+    elseif ($opt -eq 1 -and $TorInstalled -eq $true) {runTor}
+    elseif ($opt -eq 2 -and $TorInstalled -eq $false) {getTor}
+    elseif ($opt -eq 2 -and $TorInstalled -eq $true) {main}
+    elseif ($opt -eq 3 -and $TorInstalled -eq $false) {main}
+    elseif ($opt -eq 3 -and $TorInstalled -eq $true) {uninstallTor}
+}
+
+if ($auto -eq $true) {
+    if ($TorInstalled -eq $true) {
+        runTor
+    }
+    else {
+        "You almost did the today's TIFU... install Tor FIRST!"
+        Exit
+    }
 }
 
 main
