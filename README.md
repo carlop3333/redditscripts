@@ -1,7 +1,8 @@
 # A bunch of Node useless garbage
 ## Includes:
 - Useless account creator (no seriously it doesn't work)
-- Useless bot
+- Useless bot (not uploaded)
+- Not so useless token getter
 - Useless tor installer
 
 # Requirements
