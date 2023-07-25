@@ -1,3 +1,4 @@
+//Its very useless, please don't
 import { Builder, By, until } from "selenium-webdriver";
 import * as firefox from "selenium-webdriver/firefox.js";
 import "geckodriver";
@@ -73,16 +74,14 @@ async function loop(i) {
         "https://old.reddit.com/register"
       );
       await firebuild.executeScript(
-        `document.getElementById("g-recaptcha-response").innerHTML=arguments[0];`,
+        `document.getElementById("g-recaptcha-respons").innerHTML=arguments[0];`,
         result.data
       );
       await firebuild
         .findElement(By.className("c-btn c-btn-primary c-pull-right"))
         .click();
       console.log("DONEE!");
-      setTimeout(() => {
-        res();
-      }, 5000);
+      res();
     }, 6800);
     MailMap.set(`${mail}`, `${USERNAME}_${pwsd.password}`);   
   } finally {
@@ -92,9 +91,13 @@ async function loop(i) {
 }
 
 (async function start() {
-    for (var i = 17; i <= 18; i++) {
+  if (r.isMail == true) {
+    console.log("There are emails there!! Shutting down");
+  } else {
+   for (var i = 17; i <= 18; i++) {
       await loop(i);
-    }  
+    }   
+  }
 })();
 
 MailMap.forEach((val) => {
