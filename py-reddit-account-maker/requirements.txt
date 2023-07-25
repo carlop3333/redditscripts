@@ -1,4 +1,0 @@
-selenium
-tor
-requests
-names
