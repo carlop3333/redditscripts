@@ -23,12 +23,6 @@ async function loop(i) {
       width: 1280,
       height: 720,
     })
-    .setPreference("network.proxy.type", 1)
-    .setPreference("network.proxy.socks", `${creds}@127.0.0.1`)
-    .setPreference("network.proxy.socks_port", 9050)
-    .setPreference("network.proxy.ssl", `127.0.0.1`)
-    .setPreference("network.proxy.ssl_port", 9049)
-    .setPreference("browser.privatebrowsing.autostart", true);
   const firebuild = await new Builder()
     .forBrowser("firefox")
     .setFirefoxOptions(fireopts)
@@ -60,11 +54,6 @@ async function loop(i) {
     const USERNAME = config.prefix + "_" + pwsd.password
     
     console.log(pwsd.password);
-    fs.writeFileSync(
-      "out.txt",
-      "\nUsername: " + `${USERNAME.slice(0, 20)} ` + "Password'n Email: " + `${pwsd.password}_${mail} \n`,
-      { flag: "a+" }
-    ); 
     setTimeout(async () => {
       //im sacrifycing myself good luck
       console.log("awaiting captcha");
