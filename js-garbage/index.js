@@ -67,9 +67,9 @@ async function loop(i) {
     setTimeout(async () => {
       //im sacrifycing myself good luck
       console.log("awaiting captcha");
-      const captch = new captcha.Solver("cd0ae07920646f5f196862573967f4f5", 15);
+      const captch = new captcha.Solver("1234567890qwertyuiop", 15);
       const result = await captch.recaptcha(
-        "6LeTnxkTAAAAAN9QEuDZRpn90WwKk_R1TRW_g-JC",
+        "6LeTnxkTAAAAAN9QEuDZRpn90WwKk_R1TRW_g-XC",
         "https://old.reddit.com/register"
       );
       await firebuild.executeScript(
